@@ -1,0 +1,45 @@
+/* Custom styles for homepage */
+body {
+    scroll-behavior: smooth;
+  }
+  
+  /* Hero section background pattern */
+  .bg-blue-900 {
+    background-color: #1e3a8a;
+  }
+  
+  /* Mobile menu animation */
+  #mobile-menu {
+    transition: all 0.3s ease;
+  }
+  
+  /* Testimonial cards hover effect */
+  .testimonial-card {
+    transition: transform 0.3s ease;
+  }
+  
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Demo form inputs */
+  input[type="text"],
+  input[type="email"] {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  /* Smooth scrolling for anchor links */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-content {
+      text-align: center;
+    }
+    
+    .hero-image {
+      margin-top: 2rem;
+    }
+  }
