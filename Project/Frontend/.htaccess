@@ -1,0 +1,2 @@
+# Ensure index.html is prioritized over index.php
+DirectoryIndex index.html index.php

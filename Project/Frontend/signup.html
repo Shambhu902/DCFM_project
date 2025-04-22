@@ -23,14 +23,14 @@
       <p class="text-gray-600 mt-2">Join the DCFM system to manage cases efficiently</p>
     </div>
 
-    <form id="signupForm" class="space-y-5">
+    <form id="signupForm" class="space-y-5" action="http://localhost/DCFM/Project/Backend/signup.php" method="POST">
       <div>
         <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
         <div class="relative">
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <i class="fas fa-user text-gray-400"></i>
           </div>
-          <input type="text" id="fullName" required
+          <input type="text" id="fullName" name="fullName" required
                  class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                  placeholder="Enter your full name">
         </div>
@@ -42,23 +42,11 @@
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <i class="fas fa-envelope text-gray-400"></i>
           </div>
-          <input type="email" id="email" required
+          <input type="email" id="email" name="email" required
                  class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                  placeholder="Enter your email">
         </div>
       </div>
-
-      <!-- <div> -->
-        <!-- <label for="judgeId" class="block text-sm font-medium text-gray-700 mb-1">Judge ID</label>
-        <div class="relative">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <i class="fas fa-id-badge text-gray-400"></i>
-          </div>
-          <input type="text" id="judgeId" required
-                 class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                 placeholder="Create a Judge ID">
-        </div> -->
-      <!-- </div> -->
 
       <div>
         <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
@@ -66,7 +54,7 @@
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <i class="fas fa-lock text-gray-400"></i>
           </div>
-          <input type="password" id="password" required
+          <input type="password" id="password" name="password" required
                  class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                  placeholder="Enter a secure password">
         </div>
@@ -103,11 +91,10 @@
 
       const fullName = document.getElementById('fullName').value.trim();
       const email = document.getElementById('email').value.trim();
-      const judgeId = document.getElementById('judgeId').value.trim();
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
 
-      if (!fullName || !email || !judgeId || !password || !confirmPassword) {
+      if (!fullName || !email || !password || !confirmPassword) {
         alert("Please fill in all fields.");
         return;
       }
@@ -117,13 +104,21 @@
         return;
       }
 
-      // Save details temporarily (demo purpose)
-      sessionStorage.setItem("judgeName", fullName);
-      sessionStorage.setItem("judgeId", judgeId);
-      sessionStorage.setItem("email", email);
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
 
-      // Redirect to dashboard/home
-      window.location.href = "index.html";
+      // Validate password strength
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters long.");
+        return;
+      }
+
+      // Proceed with form submission
+      this.submit();
     });
   </script>
 </body>

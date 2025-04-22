@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCFM Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-sans p-6">
+    <!-- Main Insights Content -->
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Case Flow Management Insights</h1>
+        
+        <!-- Performance Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="font-semibold text-gray-700 mb-2">Cases Processed</h3>
+                <p class="text-3xl font-bold text-blue-600" id="casesProcessed">1,248</p>
+                <p class="text-sm text-gray-500 mt-2">+12% from last month</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="font-semibold text-gray-700 mb-2">Average Resolution Time</h3>
+                <p class="text-3xl font-bold text-green-600" id="resolutionTime">28</p>
+                <p class="text-sm text-gray-500 mt-2">days (-3 days from last quarter)</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="font-semibold text-gray-700 mb-2">Backlog Reduction</h3>
+                <p class="text-3xl font-bold text-purple-600" id="backlogReduced">63%</p>
+                <p class="text-sm text-gray-500 mt-2">since implementation</p>
+            </div>
+        </div>
+
+        <!-- Case Distribution -->
+        <div class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Case Type Distribution</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <div class="h-64 bg-gray-100 rounded flex items-center justify-center">
+                        <!-- Placeholder for pie chart -->
+                        <!-- <p class="text-gray-500">Case Type Pie Chart</p> -->
+                         <img src="https://www.researchgate.net/publication/376404558/figure/fig2/AS:11431281211055835@1702304932648/Pie-chart-of-the-responses-to-the-Question-I-feel-empowered-by-the-judicial-system-to.ppm"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Civil Cases</span>
+                                <span class="text-gray-600">42%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 42%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Criminal Cases</span>
+                                <span class="text-gray-600">28%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-red-600 h-2.5 rounded-full" style="width: 28%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Family Cases</span>
+                                <span class="text-gray-600">18%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-green-600 h-2.5 rounded-full" style="width: 18%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Other Cases</span>
+                                <span class="text-gray-600">12%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-yellow-600 h-2.5 rounded-full" style="width: 12%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline Improvements -->
+        <div class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Resolution Timeline Improvements</h2>
+            <div class="h-80 bg-gray-100 rounded flex items-center justify-center">
+                <!-- Placeholder for timeline chart -->
+                <img src="https://www.qimacros.com/free-excel-tips/dunce-charts/bar-chart-with-target-line.png"/>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                <div class="bg-blue-50 p-4 rounded">
+                    <h3 class="font-medium text-blue-800">Simple Cases</h3>
+                    <p class="text-2xl font-bold">14 days</p>
+                    <p class="text-sm text-gray-600">(previously 21 days)</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded">
+                    <h3 class="font-medium text-green-800">Standard Cases</h3>
+                    <p class="text-2xl font-bold">45 days</p>
+                    <p class="text-sm text-gray-600">(previously 68 days)</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded">
+                    <h3 class="font-medium text-purple-800">Complex Cases</h3>
+                    <p class="text-2xl font-bold">92 days</p>
+                    <p class="text-sm text-gray-600">(previously 127 days)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Efficiency Gains -->
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">System Efficiency Gains</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-medium text-gray-800 mb-3">Resource Utilization</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Judge Time Saved</span>
+                                <span class="font-medium">35%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 35%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Clerk Work Reduction</span>
+                                <span class="font-medium">28%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-green-600 h-2.5 rounded-full" style="width: 28%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Hearings Scheduled</span>
+                                <span class="font-medium">+22%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-purple-600 h-2.5 rounded-full" style="width: 22%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-medium text-gray-800 mb-3">Key Benefits</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>67% reduction in scheduling conflicts</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>92% accurate case categorization</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>41% faster document processing</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Automated reminders reduced no-shows by 38%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate statistics on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            animateValue('casesProcessed', 0, 1248, 1500);
+            animateValue('resolutionTime', 0, 28, 1500);
+            animateValue('backlogReduced', 0, 63, 1500);
+        });
+
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                obj.innerHTML = id === 'backlogReduced' ? value + "%" : value.toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+    </script>
+</body>
+</html>

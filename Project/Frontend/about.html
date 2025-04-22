@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About DCFM</title>
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .about-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .highlight-text {
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 600;
+    }
+    .icon-rotate {
+      transition: transform 0.5s ease;
+    }
+    .icon-rotate:hover {
+      transform: rotate(15deg) scale(1.1);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center p-6">
+  <div class="about-card p-10 max-w-2xl w-full mx-4">
+    <div class="text-center mb-8">
+      <i class=" icon-rotate text-5xl mb-4 highlight-text"></i>
+      <h1 class="text-4xl font-bold text-gray-800 mb-2">About <span class="highlight-text">DCFM</span></h1>
+      <div class="w-24 h-1.5 bg-gradient-to-r from-blue-900 to-blue-600 mx-auto rounded-full"></div>
+    </div>
+
+    <div class="space-y-6 text-gray-700 text-lg leading-relaxed">
+      <p class="relative pl-6 before:absolute before:left-0 before:top-2 before:w-1 before:h-12 before:bg-blue-600 before:rounded-full">
+        The <span class="highlight-text">Differentiated Case Flow Management (DCFM) System</span> is a specialized judicial platform designed to 
+        <span class="font-6xl text-blue-900">streamline case management</span> processes for judges and court staff. 
+        Our system provides <span class="highlight-text">intelligent tools</span> to prioritize, track, and manage cases efficiently.
+      </p>
+      
+      <div class="flex items-start space-x-4 p-6 bg-blue-50 rounded-xl border-l-4 border-blue-600">
+        <i class="fas fa-bullseye text-2xl mt-1 highlight-text"></i>
+        <div>
+          <h2 class="text-xl font-semibold text-blue-900 mb-2">Our Mission</h2>
+          <p>
+            To enhance judicial efficiency and reduce case backlogs through <span class="font-medium text-blue-900">innovative technology solutions</span> that support timely justice delivery while maintaining the highest standards of legal process.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center pt-6 border-t border-gray-200 mt-8">
+        <p class="text-gray-600">
+          <i class="fas fa-envelope mr-2 highlight-text"></i> 
+          Contact us at <a href="mailto:support@dcfm-system.org" class="font-medium highlight-text hover:underline">support@dcfm-system.org</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

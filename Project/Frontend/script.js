@@ -60,15 +60,3 @@ function animateCounters() {
   });
 }
 
-// Initialize animation when stats section is in view
-const statsSection = document.querySelector('.stats-section');
-if (statsSection) {
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      animateCounters();
-      observer.unobserve(statsSection);
-    }
-  }, { threshold: 0.5 });
-  
-  observer.observe(statsSection);
-}

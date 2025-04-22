@@ -1,218 +1,1573 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DCFM | Differentiated Case Flow Management</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="styles.css" rel="stylesheet">
-  <link rel="stylesheet" href="output.css">
-</head>
-<body class="font-sans bg-gray-50">
-  <!-- Navigation -->
-  <!-- <nav class="bg-blue-900 text-white shadow-lg">
-    <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-      <a href="index.html" class="text-2xl font-bold flex items-center">
-        <i class="fas fa-balance-scale mr-2"></i> DCFM
-      </a>
-      <div class="hidden md:flex space-x-8">
-        <a href="#features" class="hover:text-blue-300">Features</a>
-        <a href="#how-it-works" class="hover:text-blue-300">How It Works</a>
-        <a href="#testimonials" class="hover:text-blue-300">Testimonials</a>
-        <a href="dashboard.html" class="bg-blue-700 px-4 py-2 rounded-lg hover:bg-blue-800 transition">Judge Login</a>
-      </div>
-      <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-        <i class="fas fa-bars text-2xl"></i>
-      </button>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-blue-800 px-6 py-4">
-      <a href="#features" class="block py-2 hover:text-blue-300">Features</a>
-      <a href="#how-it-works" class="block py-2 hover:text-blue-300">How It Works</a>
-      <a href="#testimonials" class="block py-2 hover:text-blue-300">Testimonials</a>
-      <a href="dashboard.html" class="block bg-blue-700 px-4 py-2 rounded-lg hover:bg-blue-800 transition w-max mt-2">Judge Login</a>
-    </div>
-  </nav> -->
-  <!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DCFM | Differentiated Case Flow Management</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
   <link rel="stylesheet" href="output.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Custom Animations */
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slide-up {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes expand {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .animate-fade-in { animation: fade-in 1s ease-in-out; }
+    .animate-slide-up { animation: slide-up 1s ease-in-out; }
+    .animate-expand { animation: expand 1s ease-in-out; }
+    .animate-pulse { animation: pulse 2s infinite; }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    
+    /* Custom Styles */
+    .hero-gradient {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .testimonial-card {
+      transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #93c5fd;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    
+    .btn-hover-effect {
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-hover-effect:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: all 0.5s ease;
+    }
+    
+    .btn-hover-effect:hover:after {
+      left: 100%;
+    }
+    
+    /* Calendar customization */
+    #calendar {
+      max-width: 100%;
+      margin: 0 auto;
+      font-family: inherit;
+    }
+    
+    .fc .fc-toolbar-title {
+      font-size: 1.2em;
+    }
+    
+    .fc .fc-col-header-cell-cushion {
+      color: #4b5563;
+      font-weight: 600;
+    }
+    
+    .fc .fc-daygrid-day-number {
+      color: #4b5563;
+    }
+    
+    .fc .fc-daygrid-event {
+      background-color: #3b82f6;
+      border-color: #3b82f6;
+    }
+    
+    .fc .fc-daygrid-event:hover {
+      background-color: #2563eb;
+    }
+    
+    /* Mobile menu animation */
+    .mobile-menu-enter {
+      max-height: 0;
+      opacity: 0;
+    }
+    
+    .mobile-menu-enter-active {
+      max-height: 500px;
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+    
+    .mobile-menu-exit {
+      max-height: 500px;
+      opacity: 1;
+    }
+    
+    .mobile-menu-exit-active {
+      max-height: 0;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      z-index: 1000;
+      transition: width 0.1s ease;
+    }
+  </style>
 </head>
 <body class="font-sans bg-gray-50">
+  <!-- Scroll Indicator -->
+  <!-- <div class="scroll-indicator" id="scrollIndicator"></div> -->
+
   <!-- Navigation -->
-  <nav class="bg-blue-900 text-white shadow-lg">
+  <!-- <nav class="bg-blue-900 text-white shadow-lg sticky top-0 z-50">
     <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-      <a href="index.html" class="text-2xl font-bold flex items-center">
-        <i class="fas fa-balance-scale mr-2"></i> DCFM
+      <a href="index.html" class="text-2xl font-bold flex items-center hover:text-blue-300 transition">
+        <i class="fas fa-balance-scale mr-2 animate-pulse"></i> DCFM
       </a>
-      <div class="hidden md:flex space-x-6 items-center">
-        <a href="#features" class="hover:text-blue-300">Features</a>
-        <a href="#how-it-works" class="hover:text-blue-300">How It Works</a>
-        <a href="#testimonials" class="hover:text-blue-300">Testimonials</a>
-        <a href="login.html" class="px-4 py-2 rounded-lg hover:bg-blue-800 transition border border-white">Login</a>
-        <a href="signup.html" class="px-4 py-2 rounded-lg bg-white text-blue-900 hover:bg-gray-100 transition">Signup</a>
-        <a href="dashboard.html" class="bg-blue-700 px-4 py-2 rounded-lg hover:bg-blue-800 transition">Judge Login</a>
-      </div>
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="#features" class="nav-link hover:text-blue-300">Features</a>
+        <a href="#how-it-works" class="nav-link hover:text-blue-300">How It Works</a>
+        <a href="#testimonials" class="nav-link hover:text-blue-300">Testimonials</a>
+        <a href="#key-statistics" class="nav-link hover:text-blue-300">Statistics</a>
+        <!-- <a href="login.html" class="px-4 py-2 rounded-lg hover:bg-blue-800 transition border border-white btn-hover-effect">Login</a> -->
+        <!-- <a href="signup.html" class="px-4 py-2 rounded-lg bg-white text-blue-900 hover:bg-gray-100 transition btn-hover-effect">Signup</a> -->
+        <!-- <a href="dashboard.html" class="bg-blue-700 px-4 py-2 rounded-lg hover:bg-blue-800 transition btn-hover-effect">Judge Login</a> -->
+      <!-- </div>
       <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
         <i class="fas fa-bars text-2xl"></i>
       </button>
+    </div> -->
+
+<!--  
+    <div id="mobile-menu" class="hidden md:hidden bg-blue-800 px-6 py-4 space-y-3 transition-all duration-300">
+      <a href="#features" class="block py-2 hover:text-blue-300 transition">Features</a>
+      <a href="#how-it-works" class="block py-2 hover:text-blue-300 transition">How It Works</a>
+      <a href="#testimonials" class="block py-2 hover:text-blue-300 transition">Testimonials</a>
+      <a href="#key-statistics" class="block py-2 hover:text-blue-300 transition">Statistics</a>
+      <a href="login.html" class="block py-2 border border-white rounded-lg text-center hover:bg-blue-700 transition">Login</a>
+      <a href="signup.html" class="block py-2 bg-white text-blue-900 rounded-lg text-center hover:bg-gray-100 transition">Signup</a>
+      
     </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-blue-800 px-6 py-4 space-y-2">
-      <a href="#features" class="block py-2 hover:text-blue-300">Features</a>
-      <a href="#how-it-works" class="block py-2 hover:text-blue-300">How It Works</a>
-      <a href="#testimonials" class="block py-2 hover:text-blue-300">Testimonials</a>
-      <a href="login.html" class="block py-2 border border-white rounded-lg text-center hover:bg-blue-700">Login</a>
-      <a href="signup.html" class="block py-2 bg-white text-blue-900 rounded-lg text-center hover:bg-gray-100">Signup</a>
-      <a href="dashboard.html" class="block bg-blue-700 px-4 py-2 rounded-lg hover:bg-blue-800 transition w-max mt-2">Judge Login</a>
-    </div>
-  </nav>
-
-  <!-- Remaining sections unchanged: Hero, Stats, Features, How It Works, Testimonials, Demo CTA -->
-
-</body>
-</html>
+  </nav> --> 
 
 
+ 
+      <!-- Navigation with Profile -->
+      <nav class="bg-blue-900 text-white shadow-lg">
+          <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+              <div class="flex items-center space-x-4">
+                  <i class="fas fa-balance-scale text-2xl"></i>
+                  <span class="text-xl font-semibold">DCFM System</span>
+              </div>
+
+              <div class="hidden md:flex space-x-8 items-center">
+                <a href="#features" class="nav-link hover:text-blue-300">Features</a>
+                <a href="#how-it-works" class="nav-link hover:text-blue-300">How It Works</a>
+                <a href="#key-statistics" class="nav-link hover:text-blue-300">Statistics</a>
+                <a href="about.html" class="nav-link hover:text-blue-300">About</a>
+              </div>
+              
+              <div class="flex items-center space-x-6">
+                  <!-- Notification Icon -->
+                  <button class="relative" id="notificationButton">
+                    <i class="fas fa-bell text-xl"></i>
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                  </button>
+                  
+                  <!-- Notification Popup -->
+                  <div id="notificationPopup" class="fixed top-16 right-6 bg-white rounded-md shadow-lg p-4 w-80 z-50 hidden">
+                    <h3 class="text-lg font-semibold mb-2">Notifications</h3>
+                    <div id="notificationList">
+                      <!-- Notifications will be added here -->
+                    </div>
+                  </div>
+                  
+                  <!-- Profile Dropdown -->
+                  <div class="relative" id="profileDropdown">
+                      <button class="flex items-center space-x-2 focus:outline-none">
+                          <div class="h-8 w-8 rounded-full bg-gray-200 overflow-hidden">
+                              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7AdAQsXdgNdKV9Sm9x8OOYz0ta5EuEiEOwQ&s" 
+                                   alt="Profile" 
+                                   class="h-full w-full object-cover">
+                          </div>
+                          <span class="hidden md:inline">Admin</span>
+                          <i class="fas fa-chevron-down text-xs"></i>
+                      </button>
+                      
+                      <div class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10" id="dropdownMenu">
+                          <div class="px-4 py-2 border-b">
+                              <p class="text-sm font-medium text-gray-800">Admin</p>
+                              <p class="text-xs text-gray-500">admin@court.gov</p>
+                          </div>
+                          <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                              <i class="fas fa-user mr-2"></i> Profile
+                          </a>
+                          <!-- <a href="setting.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                              <i class="fas fa-cog mr-2"></i> Settings
+                          </a> -->
+                          <div class="border-t border-gray-200"></div>
+                          <a href="login.html" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                              <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </nav>
+  
+      <!-- Main Insights Content -->
+      
+      <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const notificationButton = document.getElementById('notificationButton');
+            const notificationPopup = document.getElementById('notificationPopup');
+            const notificationList = document.getElementById('notificationList');
+            
+            notificationButton.addEventListener('click', function() {
+              notificationPopup.classList.toggle('hidden');
+              
+              // Placeholder for fetching notifications
+              const notifications = [
+                { message: 'New case assigned to you: Smith vs. Jones', time: '5 minutes ago' },
+                { message: 'Hearing scheduled for Doe Estate', time: '1 hour ago' },
+                { message: 'Deadline approaching for Parker vs. City', time: '2 hours ago' }
+              ];
+              
+              // Clear existing notifications
+              notificationList.innerHTML = '';
+              
+              // Add notifications to the list
+              notifications.forEach(notification => {
+                const notificationItem = document.createElement('div');
+                notificationItem.classList.add('mb-2', 'p-2', 'rounded-md', 'bg-gray-50');
+                notificationItem.innerHTML = `
+                  <p class="text-sm text-gray-800">${notification.message}</p>
+                  <p class="text-xs text-gray-500">${notification.time}</p>
+                `;
+                notificationList.appendChild(notificationItem);
+              });
+            });
+            
+            // Close popup when clicking outside
+            document.addEventListener('click', function(e) {
+              if (!notificationButton.contains(e.target) && !notificationPopup.contains(e.target)) {
+                notificationPopup.classList.add('hidden');
+              }
+            });
+            
+            // Profile dropdown toggle
+            document.getElementById('profileDropdown').addEventListener('click', function(e) {
+              // Prevent closing when clicking inside dropdown
+              if (e.target.closest('#dropdownMenu')) return;
+              
+              const menu = document.getElementById('dropdownMenu');
+              menu.classList.toggle('hidden');
+            });
+  
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+              if (!e.target.closest('#profileDropdown')) {
+                  const menu = document.getElementById('dropdownMenu');
+                  menu.classList.add('hidden');
+              }
+            });
+  
+            // Animate statistics on page load
+            document.addEventListener('DOMContentLoaded', function() {
+              animateValue('casesProcessed', 0, 1248, 1500);
+              animateValue('resolutionTime', 0, 28, 1500);
+              animateValue('backlogReduced', 0, 63, 1500);
+            });
+  
+            function animateValue(id, start, end, duration) {
+              const obj = document.getElementById(id);
+              let startTimestamp = null;
+              const step = (timestamp) => {
+                  if (!startTimestamp) startTimestamp = timestamp;
+                  const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                  const value = Math.floor(progress * (end - start) + start);
+                  obj.innerHTML = id === 'backlogReduced' ? value + "%" : value.toLocaleString();
+                  if (progress < 1) {
+                      window.requestAnimationFrame(step);
+                  }
+              };
+              window.requestAnimationFrame(step);
+          }
+        });
+      </script>
+
+      
   <!-- Hero Section -->
-  <section class="bg-blue-900 text-white py-20">
+  <section class="hero-gradient text-white py-24">
     <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
-      <div class="md:w-1/2 mb-10 md:mb-0">
-        <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">Modern Case Management for the Digital Courtroom</h1>
-        <p class="text-xl mb-8">Streamline judicial workflows with AI-powered case prioritization and automated scheduling.</p>
+      <div class="md:w-1/2 mb-10 md:mb-0 animate-slide-up">
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+          <span class="inline-block"> Differentiated Case Flow Management for Efficient Judicial Processes</span>
+        </h1>
+        <p class="text-xl mb-8 text-blue-100">"DCFM: The smart way to sort, prioritize, and resolve cases faster. Streamline your workflow, reduce delays, and boost efficiency."</p>
         <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-          <a href="#demo" class="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition text-center">Request Demo</a>
-          <a href="#features" class="border-2 border-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition text-center">Learn More</a>
+          <a href="#demo" class="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition text-center btn-hover-effect animate-pulse">
+            Try it Now <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+          <!-- <a href="#features" class="border-2 border-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition text-center btn-hover-effect">
+            Learn More <i class="fas fa-chevron-down ml-2"></i>
+          </a> -->
         </div>
       </div>
-      <div class="md:w-1/2">
-        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Courtroom" class="rounded-lg shadow-2xl">
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats Section -->
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-        <div class="p-6">
-          <div class="text-5xl font-bold text-blue-900 mb-2">75%</div>
-          <div class="text-gray-600">Reduction in case backlog</div>
-        </div>
-        <div class="p-6">
-          <div class="text-5xl font-bold text-blue-900 mb-2">40%</div>
-          <div class="text-gray-600">Faster case resolution</div>
-        </div>
-        <div class="p-6">
-          <div class="text-5xl font-bold text-blue-900 mb-2">90%</div>
-          <div class="text-gray-600">User satisfaction rate</div>
-        </div>
+      <div class="md:w-1/2 animate-float">
+        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Courtroom" class="rounded-lg shadow-2xl transform hover:scale-105 transition duration-500">
       </div>
     </div>
   </section>
 
   <!-- Features Section -->
-  <section id="features" class="py-20 bg-gray-50">
+  <section id="features" class="py-20 bg-white">
     <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-center mb-16">Key Features</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
-          <div class="text-blue-900 mb-4">
-            <i class="fas fa-robot text-4xl"></i>
+      <div class="text-center mb-16">
+        <span class="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4">KEY FEATURES</span>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-6 text-gray-900">
+          Powerful Tools for
+          <span class="relative inline-block">
+            <span class="absolute -bottom-1 left-0 w-full h-2 bg-blue-200 opacity-50"></span>
+            <span class="relative">Modern Courts</span>
+          </span>
+        </h2>
+        <p class="text-center text-gray-600 text-lg max-w-3xl mx-auto">
+          Our platform offers comprehensive solutions designed specifically for judicial case management needs.
+        </p>
+      </div>
+      
+      <div class="flex gap-8 bg-amber-500">
+        <!-- Feature 1 -->
+        <div class="bg-amber-600 p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="text-blue-600 text-4xl mb-6">
+            <i class="fas fa-robot"></i>
           </div>
-          <h3 class="text-xl font-semibold mb-3">AI-Powered Categorization</h3>
-          <p class="text-gray-600">Automatically classify cases by type and complexity using machine learning algorithms.</p>
+          <h3 class="text-xl font-bold mb-3  text-gray-800">AI-Powered Case Categorization</h3>
+          <p class="text-gray-600 mb-4">Our system automatically analyzes and categorizes cases based on complexity, urgency, and required resources.</p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Reduces manual classification time by 80%</span>
+            </li>
+            <li class="flex items-start bg-amber-200">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>98% accuracy in case prioritization</span>
+            </li>
+          </ul>
         </div>
-        <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
-          <div class="text-blue-900 mb-4">
-            <i class="fas fa-tasks text-4xl"></i>
+        
+        <!-- Feature 2 -->
+        <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="text-blue-600 text-4xl mb-6">
+            <i class="fas fa-calendar-check"></i>
           </div>
-          <h3 class="text-xl font-semibold mb-3">Dynamic Prioritization</h3>
-          <p class="text-gray-600">Smart ranking system that surfaces urgent cases based on multiple legal factors.</p>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Smart Scheduling</h3>
+          <p class="text-gray-600 mb-4">Optimized scheduling algorithms ensure cases are heard at the right time by the right judge.</p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Reduces scheduling conflicts by 65%</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Automated conflict detection</span>
+            </li>
+          </ul>
         </div>
-        <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
-          <div class="text-blue-900 mb-4">
-            <i class="fas fa-calendar-alt text-4xl"></i>
+        
+        <!-- Feature 3 -->
+        <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="text-blue-600 text-4xl mb-6">
+            <i class="fas fa-chart-line"></i>
           </div>
-          <h3 class="text-xl font-semibold mb-3">Optimized Scheduling</h3>
-          <p class="text-gray-600">Automated court date assignments that maximize judicial efficiency.</p>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Real-Time Analytics</h3>
+          <p class="text-gray-600 mb-4">Comprehensive dashboards provide insights into case flow, judge workload, and court performance.</p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Customizable reporting</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Predictive analytics for case resolution</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="text-blue-600 text-4xl mb-6">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Seamless Integration</h3>
+          <p class="text-gray-600 mb-4">Works with existing court management systems and legal software for a smooth transition.</p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>API access for custom integrations</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Secure data migration</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Feature 5 -->
+        <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="text-blue-600 text-4xl mb-6">
+            <i class="fas fa-bell"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Automated Notifications</h3>
+          <p class="text-gray-600 mb-4">Keep all parties informed with automated reminders and status updates.</p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Customizable notification rules</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Multi-channel delivery (email, SMS, app)</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Feature 6 -->
+        <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="text-blue-600 text-4xl mb-6">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Enterprise Security</h3>
+          <p class="text-gray-600 mb-4">Military-grade encryption and compliance with judicial security standards.</p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Role-based access control</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Regular security audits</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section id="how-it-works" class="py-20 bg-white">
+
+
+  <section id="how-it-works" class="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
     <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-center mb-16">How DCFM Works</h2>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div class="bg-blue-50 p-6 rounded-lg text-center">
-          <div class="bg-blue-900 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
-          <h3 class="font-semibold mb-2">Case Registration</h3>
-          <p class="text-gray-600 text-sm">New cases are entered into the system with all relevant details.</p>
+      <div class="text-center mb-16">
+        <span class="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4 animate-fade-in shadow-sm">
+          PROCESS
+        </span>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-6 text-gray-900">
+          How DCFM <span class="text-blue-600">Works</span>
+          <span class="relative inline-block mt-2">
+            <span class="absolute -bottom-1 left-0 w-full h-2 bg-blue-200 opacity-50 animate-expand"></span>
+          </span>
+        </h2>
+        <p class="text-center text-gray-600 text-lg max-w-3xl mx-auto animate-slide-up">
+          A streamlined four-step process that revolutionizes case management.
+        </p>
+      </div>
+      
+      <div class="relative">
+        <!-- Animated Timeline -->
+        <div class="hidden md:block absolute left-1/2 h-full w-1 bg-gradient-to-b from-blue-300 to-indigo-300 transform -translate-x-1/2 animate-height-grow"></div>
+        
+        <!-- Step 1 -->
+        <div class="flex flex-col md:flex-row items-center mb-16 animate-fade-in">
+          <div class="md:w-1/2 md:pr-16 mb-8 md:mb-0 text-right">
+            <div class="inline-block bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 border border-white hover:border-blue-100 transform hover:-translate-y-2 group">
+              <div class="text-blue-600 text-4xl mb-4 transition-transform group-hover:scale-110 inline-flex p-3 bg-blue-50 rounded-lg">
+                <i class="fas fa-file-upload"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-gray-800">1. Case Submission</h3>
+              <p class="text-gray-600 mb-4">Cases are submitted electronically through secure portals or integrated from existing systems.</p>
+              <div class="mt-4 h-1 bg-gradient-to-r from-blue-200 to-blue-400 rounded-full w-3/4 ml-auto"></div>
+            </div>
+          </div>
+          <div class="md:w-1/2 md:pl-16">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-2xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-110">
+              1
+            </div>
+          </div>
         </div>
-        <div class="bg-blue-50 p-6 rounded-lg text-center">
-          <div class="bg-blue-900 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
-          <h3 class="font-semibold mb-2">Automated Analysis</h3>
-          <p class="text-gray-600 text-sm">AI evaluates case complexity and legal requirements.</p>
+        
+        <!-- Step 2 -->
+        <div class="flex flex-col md:flex-row items-center mb-16 animate-fade-in" style="animation-delay: 0.2s">
+          <div class="md:w-1/2 md:pr-16 order-2 md:order-1">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-2xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-110">
+              2
+            </div>
+          </div>
+          <div class="md:w-1/2 md:pl-16 mb-8 md:mb-0 text-left order-1 md:order-2">
+            <div class="inline-block bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 border border-white hover:border-blue-100 transform hover:-translate-y-2 group">
+              <div class="text-blue-600 text-4xl mb-4 transition-transform group-hover:scale-110 inline-flex p-3 bg-blue-50 rounded-lg">
+                <i class="fas fa-brain"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-gray-800">2. AI Analysis</h3>
+              <p class="text-gray-600 mb-4">Our AI evaluates case complexity, urgency, and required resources to determine optimal handling.</p>
+              <div class="mt-4 h-1 bg-gradient-to-r from-blue-200 to-blue-400 rounded-full w-3/4"></div>
+            </div>
+          </div>
         </div>
-        <div class="bg-blue-50 p-6 rounded-lg text-center">
-          <div class="bg-blue-900 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
-          <h3 class="font-semibold mb-2">Priority Assignment</h3>
-          <p class="text-gray-600 text-sm">System assigns urgency level based on multiple factors.</p>
+        
+        <!-- Step 3 -->
+        <div class="flex flex-col md:flex-row items-center mb-16 animate-fade-in" style="animation-delay: 0.4s">
+          <div class="md:w-1/2 md:pr-16 mb-8 md:mb-0 text-right">
+            <div class="inline-block bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 border border-white hover:border-blue-100 transform hover:-translate-y-2 group">
+              <div class="text-blue-600 text-4xl mb-4 transition-transform group-hover:scale-110 inline-flex p-3 bg-blue-50 rounded-lg">
+                <i class="fas fa-tasks"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-gray-800">3. Prioritization</h3>
+              <p class="text-gray-600 mb-4">Cases are automatically prioritized and assigned to appropriate tracks based on analysis.</p>
+              <div class="mt-4 h-1 bg-gradient-to-r from-blue-200 to-blue-400 rounded-full w-3/4 ml-auto"></div>
+            </div>
+          </div>
+          <div class="md:w-1/2 md:pl-16">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-2xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-110">
+              3
+            </div>
+          </div>
         </div>
-        <div class="bg-blue-50 p-6 rounded-lg text-center">
-          <div class="bg-blue-900 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
-          <h3 class="font-semibold mb-2">Court Scheduling</h3>
-          <p class="text-gray-600 text-sm">Optimal hearing dates are automatically assigned.</p>
+        
+        <!-- Step 4 -->
+        <div class="flex flex-col md:flex-row items-center animate-fade-in" style="animation-delay: 0.6s">
+          <div class="md:w-1/2 md:pr-16 order-2 md:order-1">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-2xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-110">
+              4
+            </div>
+          </div>
+          <div class="md:w-1/2 md:pl-16 mb-8 md:mb-0 text-left order-1 md:order-2">
+            <div class="inline-block bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 border border-white hover:border-blue-100 transform hover:-translate-y-2 group">
+              <div class="text-blue-600 text-4xl mb-4 transition-transform group-hover:scale-110 inline-flex p-3 bg-blue-50 rounded-lg">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-gray-800">4. Scheduling & Tracking</h3>
+              <p class="text-gray-600 mb-4">Optimal schedules are generated and all parties are notified. Real-time tracking ensures compliance.</p>
+              <div class="mt-4 h-1 bg-gradient-to-r from-blue-200 to-blue-400 rounded-full w-3/4"></div>
+            </div>
+          </div>
         </div>
+      </div>
+      
+      <!-- Animated CTA -->
+      <div class="text-center mt-16 animate-fade-in" style="animation-delay: 0.8s">
+        <a href="#demo" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all transform hover:scale-105">
+          Request Demo
+          <svg class="ml-3 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
       </div>
     </div>
   </section>
+  
+  <style>
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes expand {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    
+    @keyframes height-grow {
+      from { height: 0; }
+      to { height: 100%; }
+    }
+    
+    .animate-fade-in {
+      animation: fade-in 0.8s ease-out forwards;
+    }
+    
+    .animate-expand {
+      animation: expand 1s ease-out forwards;
+    }
+    
+    .animate-height-grow {
+      animation: height-grow 2s ease-out forwards;
+      transform-origin: top;
+    }
+    
+    /* Step hover effects */
+    .step-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(59, 130, 246, 0.04);
+    }
+    
+    /* Number bubble pulse effect */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .number-bubble:hover {
+      animation: pulse 1.5s infinite;
+    }
+  </style>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate timeline when section comes into view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Add animation classes to timeline elements
+            const timeline = document.querySelector('.animate-height-grow');
+            if (timeline) {
+              timeline.style.animationPlayState = 'running';
+            }
+            
+            // Trigger step animations with delays
+            const steps = document.querySelectorAll('.animate-fade-in');
+            steps.forEach((step, index) => {
+              setTimeout(() => {
+                step.style.animationPlayState = 'running';
+              }, index * 200);
+            });
+            
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      
+      observer.observe(document.getElementById('how-it-works'));
+    });
+  </script>
+
+  
+
+  <!-- Add Case Section -->
+
+    <!-- Add Case Section -->
+    <section id="add-case" class="py-20 bg-amber-200">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <span class="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4">CASE SUBMISSION</span>
+          <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-6 text-gray-900">
+            Submit a New Case
+            <span class="relative inline-block">
+              <span class="absolute -bottom-1 left-0 w-full h-2 bg-blue-200 opacity-50"></span>
+              <span class="relative">to the System</span>
+            </span>
+          </h2>
+          <p class="text-center text-gray-600 text-lg max-w-3xl mx-auto">
+            Use this form to submit new cases to the Differentiated Case Flow Management system.
+          </p>
+        </div>
+  
+        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-8">
+          <form id="case-submission-form">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Case Information -->
+              <div class="md:col-span-2">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Case Information</h3>
+              </div>
+              
+              <div>
+                <label for="case-title" class="block text-sm font-medium text-gray-700 mb-1">Case Title*</label>
+                <input type="text" id="case-title" name="case-title" required 
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              </div>
+              
+              <div>
+                <label for="case-type" class="block text-sm font-medium text-gray-700 mb-1">Case Type*</label>
+                <select id="case-type" name="case-type" required
+                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option value="">Select case type</option>
+                  <option value="civil">Civil</option>
+                  <option value="criminal">Criminal</option>
+                  <option value="family">Family Law</option>
+                  <option value="probate">Probate</option>
+                  <option value="juvenile">Juvenile</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="filing-date" class="block text-sm font-medium text-gray-700 mb-1">Filing Date*</label>
+                <input type="date" id="filing-date" name="filing-date" required 
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              </div>
+              
+              <div>
+                <label for="priority-level" class="block text-sm font-medium text-gray-700 mb-1">Priority Level*</label>
+                <select id="priority-level" name="priority-level" required
+                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option value="">Select priority</option>
+                  <option value="emergency">Emergency (24hr response)</option>
+                  <option value="high">High Priority (3 days)</option>
+                  <option value="medium">Medium Priority (2 weeks)</option>
+                  <option value="standard">Standard (4 weeks)</option>
+                  <option value="low">Low Priority (8 weeks)</option>
+                </select>
+              </div>
+              
+              <!-- Party Information -->
+              <div class="md:col-span-2 mt-6">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Party Information</h3>
+              </div>
+              
+              <div>
+                <label for="plaintiff" class="block text-sm font-medium text-gray-700 mb-1">Plaintiff*</label>
+                <input type="text" id="plaintiff" name="plaintiff" required 
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              </div>
+              
+              <div>
+                <label for="defendant" class="block text-sm font-medium text-gray-700 mb-1">Defendant*</label>
+                <input type="text" id="defendant" name="defendant" required 
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              </div>
+              
+              <!-- Case Details -->
+              <div class="md:col-span-2 mt-6">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Case Details</h3>
+              </div>
+              
+              <div class="md:col-span-2">
+                <label for="case-description" class="block text-sm font-medium text-gray-700 mb-1">Case Description*</label>
+                <textarea id="case-description" name="case-description" rows="4" required
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+              </div>
+              
+              <!-- Supporting Documents -->
+              <div class="md:col-span-2 mt-6">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Supporting Documents</h3>
+              </div>
+              
+              <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Upload Documents</label>
+                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                  <div class="space-y-1 text-center">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <div class="flex text-sm text-gray-600">
+                      <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                        <span>Upload files</span>
+                        <input id="file-upload" name="file-upload" type="file" class="sr-only" multiple>
+                      </label>
+                      <p class="pl-1">or drag and drop</p>
+                    </div>
+                    <p class="text-xs text-gray-500">PDF, DOCX up to 10MB</p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Submit Button -->
+              <div class="md:col-span-2 mt-8">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center btn-hover-effect">
+                  <i class="fas fa-paper-plane mr-2"></i> Submit Case
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+  
+        <!-- Success Modal -->
+        <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+          <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+              <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                <i class="fas fa-check text-green-600 text-xl"></i>
+              </div>
+              <h3 class="mt-3 text-lg font-medium text-gray-900">Case Submitted Successfully!</h3>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500" id="success-message"></p>
+              </div>
+              <div class="mt-4">
+                <button id="close-modal" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('case-submission-form');
+        const successModal = document.getElementById('success-modal');
+        const closeModal = document.getElementById('close-modal');
+        const successMessage = document.getElementById('success-message');
+        
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          // Get form data
+          const formData = new FormData();
+          formData.append('case_title', document.getElementById('case-title').value);
+          formData.append('case_type', document.getElementById('case-type').value);
+          formData.append('filing_date', document.getElementById('filing-date').value);
+          formData.append('priority_level', document.getElementById('priority-level').value);
+          formData.append('plaintiff', document.getElementById('plaintiff').value);
+          formData.append('defendant', document.getElementById('defendant').value);
+          formData.append('case_description', document.getElementById('case-description').value);
+          
+          // Add files if any
+          const fileInput = document.getElementById('file-upload');
+          if (fileInput.files.length > 0) {
+            for (let i = 0; i < fileInput.files.length; i++) {
+              formData.append('documents[]', fileInput.files[i]);
+            }
+          }
+          
+          // Validate required fields
+          const requiredFields = [
+            'case_title', 'case_type', 'filing_date',
+            'priority_level', 'plaintiff', 'defendant',
+            'case_description'
+          ];
+          
+          let isValid = true;
+          requiredFields.forEach(field => {
+            if (!formData.get(field)) {
+              isValid = false;
+            }
+          });
+          
+          if (!isValid) {
+            alert('Please fill in all required fields');
+            return;
+          }
+          
+          try {
+            // Send data to server
+            const response = await fetch('http://localhost/DCFM/Project/Backend/save_case.php', {
+              method: 'POST',
+              body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+              successMessage.textContent = `Case ID: ${result.caseId}`;
+              successModal.classList.remove('hidden');
+              form.reset();
+            } else {
+              alert(`Error: ${result.message}`);
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Case submitted successfully');
+          }
+        });
+        
+        closeModal.addEventListener('click', function() {
+          successModal.classList.add('hidden');
+        });
+        
+        successModal.addEventListener('click', function(e) {
+          if (e.target === successModal) {
+            successModal.classList.add('hidden');
+          }
+        });
+      });
+    </script>
+
+
+
+
+      <section id="key-statistics" class="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-16">
+            <span class="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4 animate-fade-in shadow-sm">
+              OUR IMPACT
+            </span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-6 text-gray-900">
+              Transforming <span class="text-blue-600">Legal Management</span>
+              <span class="relative inline-block mt-2">
+                <span class="absolute -bottom-1 left-0 w-full h-2 bg-blue-200 opacity-50 animate-expand"></span>
+              </span>
+            </h2>
+            <p class="text-center text-gray-600 text-lg max-w-3xl mx-auto animate-slide-up">
+              Real-time insights powering smarter legal decisions. Our platform delivers transparency and efficiency at every step.
+            </p>
+          </div>
+      
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Statistic 1 - Total Clients -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group border border-white hover:border-blue-100 relative overflow-hidden animate-fade-in stat-card transform hover:-translate-y-2">
+              <div class="absolute -right-6 -top-6 w-24 h-24 bg-blue-100 rounded-full opacity-10 group-hover:opacity-20 transition duration-500"></div>
+              <div class="text-blue-600 text-4xl mb-4 transition-transform group-hover:scale-110 inline-flex p-3 bg-blue-50 rounded-lg">
+                <i class="fas fa-users"></i>
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-gray-800">Total Clients</h3>
+              <p class="text-3xl font-extrabold mb-2 text-gray-900 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <span class="counter" data-target="1250">0</span>+
+              </p>
+              <p class="text-gray-500 text-sm">Clients actively using the system</p>
+              <div class="mt-4 h-1 bg-gradient-to-r from-blue-200 to-blue-400 rounded-full w-3/4 mx-auto"></div>
+            </div>
+      
+            <!-- Statistic 2 - Total Cases -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group border border-white hover:border-blue-100 relative overflow-hidden animate-fade-in stat-card transform hover:-translate-y-2">
+              <div class="absolute -right-6 -top-6 w-24 h-24 bg-blue-100 rounded-full opacity-10 group-hover:opacity-20 transition duration-500"></div>
+              <div class="text-blue-600 text-4xl mb-4 transition-transform group-hover:scale-110 inline-flex p-3 bg-blue-50 rounded-lg">
+                <i class="fas fa-briefcase"></i>
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-gray-800">Total Cases</h3>
+              <p class="text-3xl font-extrabold mb-2 text-gray-900 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <span class="counter" data-target="3450">0</span>+
+              </p>
+              <p class="text-gray-500 text-sm">Cases managed through the platform</p>
+              <div class="mt-4 h-1 bg-gradient-to-r from-blue-200 to-blue-400 rounded-full w-3/4 mx-auto"></div>
+            </div>
+      
+            <!-- Statistic 3 - Case Dates -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group border border-white hover:border-blue-100 relative overflow-hidden animate-fade-in stat-card transform hover:-translate-y-2">
+              <div class="absolute -right-6 -top-6 w-24 h-24 bg-blue-100 rounded-full opacity-10 group-hover:opacity-20 transition duration-500"></div>
+              <div class="text-blue-600 text-4xl mb-4 transition-transform group-hover:scale-110 inline-flex p-3 bg-blue-50 rounded-lg">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-gray-800">Case Dates</h3>
+              <p class="text-3xl font-extrabold mb-2 text-gray-900 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <span class="counter" data-target="1120">0</span>+
+              </p>
+              <p class="text-gray-500 text-sm">Scheduled hearings and deadlines</p>
+              <div class="mt-4 h-1 bg-gradient-to-r from-blue-200 to-blue-400 rounded-full w-3/4 mx-auto"></div>
+            </div>
+      
+            <!-- Statistic 4 - Upcoming Cases -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group border border-white hover:border-blue-100 relative overflow-hidden animate-fade-in stat-card transform hover:-translate-y-2">
+              <div class="absolute -right-6 -top-6 w-24 h-24 bg-blue-100 rounded-full opacity-10 group-hover:opacity-20 transition duration-500"></div>
+              <div class="text-blue-600 text-4xl mb-4 transition-transform group-hover:scale-110 inline-flex p-3 bg-blue-50 rounded-lg">
+                <i class="fas fa-calendar-day"></i>
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-gray-800">Upcoming Cases</h3>
+              <p class="text-3xl font-extrabold mb-2 text-gray-900 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <span class="counter" data-target="85">0</span>+
+              </p>
+              <p class="text-gray-500 text-sm">Next 30 days</p>
+              <div class="mt-4 h-1 bg-gradient-to-r from-blue-200 to-blue-400 rounded-full w-3/4 mx-auto"></div>
+            </div>
+      
+            <!-- Enhanced Calendar Section - Now spans full width -->
+            <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 group border border-white hover:border-blue-100 relative overflow-hidden animate-fade-in stat-card transform hover:-translate-y-2 col-span-1 md:col-span-2 lg:col-span-4">
+              <div class="flex flex-col lg:flex-row">
+                <!-- Calendar Visualization -->
+                <div class="w-full lg:w-2/3 pr-0 lg:pr-8">
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="text-blue-600 text-3xl transition-transform group-hover:scale-110 inline-flex p-3 bg-blue-50 rounded-lg">
+                      <i class="fas fa-calendar"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 flex-grow text-center lg:text-left">Court Calendar Overview</h3>
+                  </div>
+                  
+                  <div id="mini-calendar" class="h-96 w-full"></div>
+                  
+                  <div class="flex justify-center space-x-6 mt-4">
+                    <div class="text-sm text-gray-500 flex items-center">
+                      <span class="inline-block w-3 h-3 rounded-full bg-blue-500 mr-2"></span> Hearings
+                    </div>
+                    <div class="text-sm text-gray-500 flex items-center">
+                      <span class="inline-block w-3 h-3 rounded-full bg-indigo-500 mr-2"></span> Trials
+                    </div>
+                    <div class="text-sm text-gray-500 flex items-center">
+                      <span class="inline-block w-3 h-3 rounded-full bg-purple-500 mr-2"></span> Deadlines
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Upcoming Events List -->
+                <div class="w-full lg:w-1/3 mt-8 lg:mt-0 border-t lg:border-t-0 lg:border-l border-gray-100 pt-6 lg:pt-0 lg:pl-8">
+                  <h4 class="font-semibold text-gray-700 mb-4 text-lg">Today's Schedule</h4>
+                  <div class="space-y-4 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
+                    <!-- Sample Event 1 -->
+                    <div class="flex items-start p-3 rounded-lg hover:bg-blue-50 transition-colors">
+                      <div class="flex-shrink-0 mt-1">
+                        <div class="h-2 w-2 rounded-full bg-blue-500"></div>
+                      </div>
+                      <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-900">Smith v. Jones</p>
+                        <p class="text-xs text-gray-500 mt-1">10:00 AM - 11:30 AM</p>
+                        <p class="text-xs text-blue-600 mt-1 flex items-center">
+                          <i class="fas fa-map-marker-alt mr-1"></i> Courtroom 3B
+                        </p>
+                        <div class="mt-2">
+                          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                            Civil Case
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Sample Event 2 -->
+                    <div class="flex items-start p-3 rounded-lg hover:bg-indigo-50 transition-colors">
+                      <div class="flex-shrink-0 mt-1">
+                        <div class="h-2 w-2 rounded-full bg-indigo-500"></div>
+                      </div>
+                      <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-900">State v. Johnson</p>
+                        <p class="text-xs text-gray-500 mt-1">2:30 PM - 4:00 PM</p>
+                        <p class="text-xs text-blue-600 mt-1 flex items-center">
+                          <i class="fas fa-map-marker-alt mr-1"></i> Courtroom 5A
+                        </p>
+                        <div class="mt-2">
+                          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800">
+                            Criminal Case
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Sample Event 3 -->
+                    <div class="flex items-start p-3 rounded-lg hover:bg-purple-50 transition-colors">
+                      <div class="flex-shrink-0 mt-1">
+                        <div class="h-2 w-2 rounded-full bg-purple-500"></div>
+                      </div>
+                      <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-900">Doe Estate Hearing</p>
+                        <p class="text-xs text-gray-500 mt-1">9:00 AM - 10:00 AM</p>
+                        <p class="text-xs text-blue-600 mt-1 flex items-center">
+                          <i class="fas fa-map-marker-alt mr-1"></i> Judge's Chambers
+                        </p>
+                        <div class="mt-2">
+                          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">
+                            Probate
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Sample Event 4 -->
+                    <div class="flex items-start p-3 rounded-lg hover:bg-blue-50 transition-colors">
+                      <div class="flex-shrink-0 mt-1">
+                        <div class="h-2 w-2 rounded-full bg-blue-500"></div>
+                      </div>
+                      <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-900">Motion Hearing</p>
+                        <p class="text-xs text-gray-500 mt-1">1:15 PM - 1:45 PM</p>
+                        <p class="text-xs text-blue-600 mt-1 flex items-center">
+                          <i class="fas fa-map-marker-alt mr-1"></i> Courtroom 2C
+                        </p>
+                        <div class="mt-2">
+                          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                            Family Law
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-6 pt-4 border-t border-gray-100">
+                    <a href="#" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
+                      View Full Calendar
+                      <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- CTA Button -->
+          <div class="text-center mt-16">
+        <a href="insights.html" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all hover:scale-105 transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 animate-bounce btn-hover-effect">
+          Explore More Insights
+          <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+      
+      <!-- Required CSS -->
+      <style>
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes expand {
+          from { width: 0; }
+          to { width: 100%; }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.8s ease-out forwards;
+        }
+        .animate-expand {
+          animation: expand 1s ease-out forwards;
+        }
+        .stat-card:hover {
+          box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(59, 130, 246, 0.04);
+        }
+        
+        /* Calendar Styling */
+        #mini-calendar {
+          border-radius: 0.75rem;
+          overflow: hidden;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        #mini-calendar .fc-header-toolbar {
+          margin-bottom: 0.5em;
+          padding: 0.5rem;
+        }
+        
+        #mini-calendar .fc-toolbar-title {
+          font-size: 1.1em;
+          font-weight: 600;
+          color: #374151;
+        }
+        
+        #mini-calendar .fc-button {
+          background-color: transparent;
+          border: 1px solid #e5e7eb;
+          color: #4b5563;
+          font-size: 0.8em;
+          padding: 0.3em 0.6em;
+          transition: all 0.2s;
+        }
+        
+        #mini-calendar .fc-button:hover {
+          background-color: #f3f4f6;
+          color: #1e40af;
+        }
+        
+        #mini-calendar .fc-daygrid-day-number {
+          color: #6b7280;
+          font-size: 0.8em;
+        }
+        
+        #mini-calendar .fc-day-today {
+          background-color: #f0f9ff !important;
+        }
+        
+        #mini-calendar .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+          font-weight: bold;
+          color: #1e40af;
+        }
+        
+        #mini-calendar .fc-event {
+          cursor: pointer;
+          font-size: 0.7em;
+          padding: 0.1em 0.3em;
+          margin-bottom: 0.1em;
+          border-radius: 0.25em;
+          border: none;
+          transition: transform 0.2s;
+        }
+        
+        #mini-calendar .fc-event:hover {
+          transform: translateY(-1px);
+        }
+        
+        #mini-calendar .fc-daygrid-event-dot {
+          display: none;
+        }
+        
+        /* Custom scrollbar for events list */
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 10px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #cbd5e0;
+          border-radius: 10px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #a0aec0;
+        }
+      </style>
+      
+      <!-- Required JavaScript -->
+      <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+      <script src="https://unpkg.com/@popperjs/core@2"></script>
+      <script src="https://unpkg.com/tippy.js@6"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Counter animation
+          const counters = document.querySelectorAll('.counter');
+          const speed = 200;
+          
+          const animateCounters = () => {
+            counters.forEach(counter => {
+              const target = +counter.getAttribute('data-target');
+              const count = +counter.innerText;
+              const increment = target / speed;
+              
+              if (count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(animateCounters, 1);
+              } else {
+                counter.innerText = target;
+              }
+            });
+          };
+          
+          // Initialize calendar
+          const calendarEl = document.getElementById('mini-calendar');
+          if (calendarEl) {
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+              initialView: 'dayGridMonth',
+              headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: ''
+              },
+              height: '100%',
+              aspectRatio: 1.8,
+              dayMaxEvents: 3,
+              events: [
+                {
+                  title: 'Smith v. Jones',
+                  start: new Date(),
+                  className: 'bg-blue-500 hover:bg-blue-600',
+                  extendedProps: {
+                    location: 'Courtroom 3B',
+                    type: 'hearing',
+                    caseType: 'Civil Case'
+                  }
+                },
+                {
+                  title: 'State v. Johnson',
+                  start: new Date(new Date().setDate(new Date().getDate() + 1)),
+                  className: 'bg-indigo-500 hover:bg-indigo-600',
+                  extendedProps: {
+                    location: 'Courtroom 5A',
+                    type: 'trial',
+                    caseType: 'Criminal Case'
+                  }
+                },
+                {
+                  title: 'Doe Estate',
+                  start: new Date(new Date().setDate(new Date().getDate() + 3)),
+                  className: 'bg-purple-500 hover:bg-purple-600',
+                  extendedProps: {
+                    location: 'Judge\'s Chambers',
+                    type: 'deadline',
+                    caseType: 'Probate'
+                  }
+                },
+                {
+                  title: 'Motion Hearing',
+                  start: new Date(new Date().setDate(new Date().getDate() + 5)),
+                  className: 'bg-blue-500 hover:bg-blue-600',
+                  extendedProps: {
+                    location: 'Courtroom 2C',
+                    type: 'hearing',
+                    caseType: 'Family Law'
+                  }
+                }
+              ],
+              eventDidMount: function(info) {
+                // Add tooltip with more info
+                tippy(info.el, {
+                  content: `
+                    <div class="p-2">
+                      <h4 class="font-bold text-gray-800">${info.event.title}</h4>
+                      <p class="text-sm text-gray-600 mt-1">
+                        <i class="fas fa-calendar-day mr-1"></i> 
+                        ${info.event.start.toLocaleDateString()}
+                      </p>
+                      <p class="text-sm text-gray-600 mt-1">
+                        <i class="fas fa-clock mr-1"></i> 
+                        ${info.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                      </p>
+                      ${info.event.extendedProps.location ? `
+                      <p class="text-sm text-gray-600 mt-1">
+                        <i class="fas fa-map-marker-alt mr-1"></i> 
+                        ${info.event.extendedProps.location}
+                      </p>` : ''}
+                      <p class="text-sm mt-2">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getCaseTypeColor(info.event.extendedProps.caseType)}">
+                          ${info.event.extendedProps.caseType}
+                        </span>
+                      </p>
+                    </div>
+                  `,
+                  allowHTML: true,
+                  placement: 'top',
+                  theme: 'light',
+                  interactive: true,
+                  appendTo: document.body
+                });
+              }
+            });
+            calendar.render();
+          }
+          
+          function getCaseTypeColor(caseType) {
+            const types = {
+              'Civil Case': 'bg-blue-100 text-blue-800',
+              'Criminal Case': 'bg-indigo-100 text-indigo-800',
+              'Probate': 'bg-purple-100 text-purple-800',
+              'Family Law': 'bg-pink-100 text-pink-800'
+            };
+            return types[caseType] || 'bg-gray-100 text-gray-800';
+          }
+          
+          // Trigger counter animation when section is in view
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.5 });
+          
+          observer.observe(document.getElementById('key-statistics'));
+        });
+      </script>
+
+
+
+  
+      <!-- CTA Button -->
 
   <!-- Testimonials -->
-  <section id="testimonials" class="py-20 bg-gray-50">
+  <section id="testimonials" class="py-20 bg-white">
     <div class="container mx-auto px-6">
       <h2 class="text-3xl font-bold text-center mb-16">What Judges Are Saying</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-lg shadow-md">
-          <div class="flex items-center mb-4">
-            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Judge" class="w-12 h-12 rounded-full mr-4">
-            <div>
-              <h4 class="font-semibold">Judge Sarah Williams</h4>
-              <p class="text-gray-500 text-sm">District Court</p>
+      
+      <!-- Slider Container -->
+      <div class="relative">
+        <div class="testimonial-slider-container overflow-hidden">
+          <div class="testimonial-slider flex transition-transform duration-500 ease-in-out">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card bg-gray-50 p-8 rounded-lg shadow-md flex-shrink-0 w-full md:w-1/3">
+              <div class="flex items-center mb-4">
+                <img src="https://cdnbbsr.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2023/10/2024011116.jpg" alt="Judge" class="w-12 h-12 rounded-full mr-4">
+                <div>
+                  <h4 class="font-semibold">Ashok Tiwary</h4>
+                  <p class="text-gray-500 text-sm">Supreme Court of india</p>
+                  <div class="flex text-yellow-400 mt-1">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600 italic">"DCFM has transformed how we manage our docket. The automated prioritization alone has saved me 10+ hours per week."</p>
+              <div class="mt-4 text-blue-500 text-4xl opacity-10">
+                <i class="fas fa-quote-right"></i>
+              </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card bg-gray-50 p-8 rounded-lg shadow-md flex-shrink-0 w-full md:w-1/3">
+              <div class="flex items-center mb-4">
+                <img src="https://cdnbbsr.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2023/10/2024101663-e1729060531872.jpeg" alt="Judge" class="w-12 h-12 rounded-full mr-4">
+                <div>
+                  <h4 class="font-semibold">Omprakash mahto</h4>
+                  <p class="text-gray-500 text-sm">High Court</p>
+                  <div class="flex text-yellow-400 mt-1">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600 italic">"The scheduling optimization reduced our backlog by 60% in just three months. Incredible results."</p>
+              <div class="mt-4 text-blue-500 text-4xl opacity-10">
+                <i class="fas fa-quote-right"></i>
+              </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card bg-gray-50 p-8 rounded-lg shadow-md flex-shrink-0 w-full md:w-1/3">
+              <div class="flex items-center mb-4">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPQ9lyIuQrCwopu82YKVHzfWJy7Xi_cXSZeQ&s" alt="Judge" class="w-12 h-12 rounded-full mr-4">
+                <div>
+                  <h4 class="font-semibold">Arvind Kumar</h4>
+                  <p class="text-gray-500 text-sm">District Court</p>
+                  <div class="flex text-yellow-400 mt-1">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600 italic">"Finally a system designed by judges, for judges. The interface is intuitive and the results speak for themselves."</p>
+              <div class="mt-4 text-blue-500 text-4xl opacity-10">
+                <i class="fas fa-quote-right"></i>
+              </div>
+            </div>
+            
+            <!-- Additional Testimonials (Hidden by Default) -->
+            <div class="testimonial-card bg-gray-50 p-8 rounded-lg shadow-md flex-shrink-0 w-full md:w-1/3">
+              <div class="flex items-center mb-4">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBJLYSKmtGMzpy6nRYt19XUDSigdraPgNcEw&s" alt="Judge" class="w-12 h-12 rounded-full mr-4">
+                <div>
+                  <h4 class="font-semibold">Deepak Singh</h4>
+                  <p class="text-gray-500 text-sm">High Court</p>
+                  <div class="flex text-yellow-400 mt-1">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600 italic">"DCFM has greatly improved our case management. Highly recommended!"</p>
+              <div class="mt-4 text-blue-500 text-4xl opacity-10">
+                <i class="fas fa-quote-right"></i>
+              </div>
+            </div>
+            
+            <div class="testimonial-card bg-gray-50 p-8 rounded-lg shadow-md flex-shrink-0 w-full md:w-1/3">
+              <div class="flex items-center mb-4">
+                <img src="https://nagalandtribune.in/wp-content/uploads/2022/10/Justice-Chandrachud-set-to-become-50th-CJI-of-India.jpg" alt="Judge" class="w-12 h-12 rounded-full mr-4">
+                <div>
+                  <h4 class="font-semibold">Govind Singhania</h4>
+                  <p class="text-gray-500 text-sm">District Court</p>
+                  <div class="flex text-yellow-400 mt-1">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600 italic">"An excellent tool for managing court cases efficiently."</p>
+              <div class="mt-4 text-blue-500 text-4xl opacity-10">
+                <i class="fas fa-quote-right"></i>
+              </div>
             </div>
           </div>
-          <p class="text-gray-600 italic">"DCFM has transformed how we manage our docket. The automated prioritization alone has saved me 10+ hours per week."</p>
         </div>
-        <div class="bg-white p-8 rounded-lg shadow-md">
-          <div class="flex items-center mb-4">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Judge" class="w-12 h-12 rounded-full mr-4">
-            <div>
-              <h4 class="font-semibold">Judge Michael Chen</h4>
-              <p class="text-gray-500 text-sm">Superior Court</p>
-            </div>
-          </div>
-          <p class="text-gray-600 italic">"The scheduling optimization reduced our backlog by 60% in just three months. Incredible results."</p>
-        </div>
-        <div class="bg-white p-8 rounded-lg shadow-md">
-          <div class="flex items-center mb-4">
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Judge" class="w-12 h-12 rounded-full mr-4">
-            <div>
-              <h4 class="font-semibold">Judge Patricia Rodriguez</h4>
-              <p class="text-gray-500 text-sm">Circuit Court</p>
-            </div>
-          </div>
-          <p class="text-gray-600 italic">"Finally a system designed by judges, for judges. The interface is intuitive and the results speak for themselves."</p>
-        </div>
+        
+        <!-- Navigation Buttons -->
+        <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 hover:bg-opacity-100 text-gray-700 font-bold py-2 px-4 rounded-l transition-colors" id="prevTestimonial">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 hover:bg-opacity-100 text-gray-700 font-bold py-2 px-4 rounded-r transition-colors" id="nextTestimonial">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
     </div>
   </section>
+
+  <style>
+    /* Slider Styles */
+    .testimonial-slider-container {
+      overflow: hidden;
+    }
+    
+    .testimonial-slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    
+    .testimonial-card {
+      flex: 0 0 100%; /* Each card takes full width on mobile */
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    
+    /* Media query for larger screens */
+    @media (min-width: 768px) {
+      .testimonial-card {
+        flex: 0 0 33.333%; /* Each card takes 1/3 width on larger screens */
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const slider = document.querySelector('.testimonial-slider');
+      const slides = document.querySelectorAll('.testimonial-card');
+      const prevButton = document.getElementById('prevTestimonial');
+      const nextButton = document.getElementById('nextTestimonial');
+      
+      let currentIndex = 0;
+      const slideWidth = slides[0].offsetWidth;
+      
+      function updateSlider() {
+        slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+      }
+      
+      nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlider();
+      });
+      
+      prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateSlider();
+      });
+    });
+  </script>
 
   <!-- Demo CTA -->
   <section id="demo" class="py-20 bg-blue-900 text-white">
@@ -221,19 +1576,21 @@
       <p class="text-xl mb-8 max-w-2xl mx-auto">Schedule a personalized demo to see how DCFM can work for your jurisdiction.</p>
       <form class="max-w-md mx-auto">
         <div class="mb-4">
-          <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg text-gray-800">
+          <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div class="mb-4">
-          <input type="email" placeholder="Email Address" class="w-full px-4 py-3 rounded-lg text-gray-800">
+          <input type="email" placeholder="Email Address" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div class="mb-4">
-          <input type="text" placeholder="Court/Jurisdiction" class="w-full px-4 py-3 rounded-lg text-gray-800">
+          <input type="text" placeholder="Court/Jurisdiction" class="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
-        <button type="submit" class="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition w-full">Request Demo</button>
+        <button type="submit" class="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition w-full btn-hover-effect">
+          Request Demo <i class="fas fa-arrow-right ml-2"></i>
+        </button>
       </form>
     </div>
   </section>
-
+  
   <!-- Footer -->
   <footer class="bg-gray-800 text-white py-12">
     <div class="container mx-auto px-6">
@@ -242,31 +1599,39 @@
           <h3 class="text-xl font-bold mb-4 flex items-center">
             <i class="fas fa-balance-scale mr-2"></i> DCFM
           </h3>
-          <p class="text-gray-400">Differentiated Case Flow Management for modern courtrooms.</p>
+          <p class="text-gray-400 mb-4">Differentiated Case Flow Management for modern courtrooms.</p>
+          <div class="flex space-x-4">
+            <a href="https://x.com/Shambhudhanpal" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/shambhudhan/" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/Shambhu902" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-github"></i></a>
+          </div>
         </div>
         <div>
           <h4 class="font-semibold mb-4">Product</h4>
           <ul class="space-y-2">
-            <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
-            <li><a href="#how-it-works" class="text-gray-400 hover:text-white">How It Works</a></li>
-            <li><a href="#demo" class="text-gray-400 hover:text-white">Request Demo</a></li>
+            <li><a href="#features" class="text-gray-400 hover:text-white transition">Features</a></li>
+            <li><a href="#how-it-works" class="text-gray-400 hover:text-white transition">How It Works</a></li>
+            <li><a href="#demo" class="text-gray-400 hover:text-white transition">Request Demo</a></li>
+            <li><a href="#testimonials" class="text-gray-400 hover:text-white transition">Testimonials</a></li>
           </ul>
         </div>
         <div>
           <h4 class="font-semibold mb-4">Company</h4>
           <ul class="space-y-2">
-            <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Contact</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Press</a></li>
           </ul>
         </div>
         <div>
-          <h4 class="font-semibold mb-4">Connect</h4>
-          <div class="flex space-x-4">
-            <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-github"></i></a>
-          </div>
+          <h4 class="font-semibold mb-4">Resources</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Documentation</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">API Reference</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Help Center</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Legal</a></li>
+          </ul>
         </div>
       </div>
       <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
@@ -275,6 +1640,140 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-blue-700 focus:outline-none">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile Menu Toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      
+      // Counter Animation
+      const counters = document.querySelectorAll('.counter');
+      const speed = 200; // Animation duration in ms
+      
+      const animateCounters = () => {
+        counters.forEach(counter => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const increment = target / speed;
+          
+          if (count < target) {
+            counter.innerText = Math.ceil(count + increment);
+            setTimeout(animateCounters, 1);
+          } else {
+            counter.innerText = target;
+          }
+        });
+      };
+      
+      // Trigger animation when section comes into view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      observer.observe(document.getElementById('key-statistics'));
+      
+      // Initialize Calendar
+      const calendarEl = document.getElementById('calendar');
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: [
+          {
+            title: 'Hearing: Smith v. Jones',
+            start: new Date(),
+            className: 'bg-blue-500'
+          },
+          {
+            title: 'Case Review: Doe Estate',
+            start: new Date(new Date().setDate(new Date().getDate() + 2)),
+            className: 'bg-blue-500'
+          },
+          {
+            title: 'Trial: State v. Johnson',
+            start: new Date(new Date().setDate(new Date().getDate() + 5)),
+            end: new Date(new Date().setDate(new Date().getDate() + 7)),
+            className: 'bg-blue-500'
+          },
+          {
+            title: 'Motion Hearing: Parker v. City',
+            start: new Date(new Date().setDate(new Date().getDate() + 9)),
+            className: 'bg-blue-500'
+          }
+        ],
+        height: 'auto'
+      });
+      calendar.render();
+      
+      // Scroll Indicator
+      const scrollIndicator = document.getElementById('scrollIndicator');
+      window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (scrollTop / scrollHeight) * 100;
+        scrollIndicator.style.width = scrolled + '%';
+      });
+      
+      // Back to Top Button
+      const backToTopButton = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.remove('opacity-0', 'invisible');
+          backToTopButton.classList.add('opacity-100', 'visible');
+        } else {
+          backToTopButton.classList.remove('opacity-100', 'visible');
+          backToTopButton.classList.add('opacity-0', 'invisible');
+        }
+      });
+      
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+            
+            // Close mobile menu if open
+            if (!mobileMenu.classList.contains('hidden')) {
+              mobileMenu.classList.add('hidden');
+            }
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

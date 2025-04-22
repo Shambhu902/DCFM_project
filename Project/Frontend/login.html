@@ -9,10 +9,57 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(30, 64, 175, 0.9) 100%), 
+                  url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
     }
     .login-card {
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    .login-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    .fa-balance-scale {
+      transition: all 0.3s ease;
+    }
+    .fa-balance-scale:hover {
+      transform: scale(1.1) rotate(5deg);
+      color: #1e40af;
+    }
+    input[type="email"], input[type="password"] {
+      transition: all 0.3s ease;
+    }
+    input[type="email"]:hover, input[type="password"]:hover {
+      border-color: #1e40af;
+    }
+    input[type="email"]:focus, input[type="password"]:focus {
+      border-color: #1e40af;
+      box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    }
+    .text-blue-900:hover {
+      color: #1e40af;
+      text-decoration: underline;
+    }
+    button[type="submit"] {
+      transition: all 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background-color: #1e40af;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+    input[type="checkbox"] {
+      transition: all 0.2s ease;
+    }
+    input[type="checkbox"]:hover {
+      transform: scale(1.1);
+      border-color: #1e40af;
     }
   </style>
 </head>
@@ -24,16 +71,16 @@
       <p class="text-gray-600 mt-2">Differentiated Case Flow Management System</p>
     </div>
     
-    <form id="loginForm" class="space-y-6">
+    <form id="loginForm" class="space-y-6" action="http://localhost/DCFM/Project/Backend/login.php" method="POST">
       <div>
-        <label for="judgeId" class="block text-sm font-medium text-gray-700 mb-1">Judge ID</label>
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
         <div class="relative">
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <i class="fas fa-user-shield text-gray-400"></i>
+            <i class="fas fa-envelope text-gray-400"></i>
           </div>
-          <input type="text" id="judgeId" required
+          <input type="email" id="email" name="email" required
                  class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                 placeholder="Enter your judge ID">
+                 placeholder="Enter your email">
         </div>
       </div>
       
@@ -43,7 +90,7 @@
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <i class="fas fa-lock text-gray-400"></i>
           </div>
-          <input type="password" id="password" required
+          <input type="password" id="password" name="password" required
                  class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                  placeholder="Enter your password">
         </div>
@@ -70,29 +117,18 @@
     </form>
     
     <div class="mt-6 text-center text-sm text-gray-600">
-      <p>Need help? <a href="#" class="font-medium text-blue-900 hover:text-blue-700">Contact court administration</a></p>
+      <p>Dont't have an account? <a href="signup.html" class="font-medium text-blue-900 hover:text-blue-700">Signup</a></p>
     </div>
   </div>
 
   <script>
     document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Get form values
-      const judgeId = document.getElementById('judgeId').value;
+      const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-      const rememberMe = document.getElementById('remember-me').checked;
-      
-      // Simple validation (in a real app, this would be server-side)
-      if (judgeId && password) {
-        // Store in sessionStorage (for demo purposes)
-        sessionStorage.setItem('judgeId', judgeId);
-        sessionStorage.setItem('rememberMe', rememberMe);
-        
-        // Redirect to dashboard
-        window.location.href = 'index.html';
-      } else {
-        alert('Please enter both Judge ID and Password');
+
+      if (!email || !password) {
+        e.preventDefault();
+        alert("Please fill in both Email and Password.");
       }
     });
   </script>
