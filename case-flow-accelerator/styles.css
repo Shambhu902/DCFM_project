@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --navy-800: #1e3a8a;
+    --navy-700: #1e40af;
+    --navy-600: #2563eb;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.bg-navy-800 {
+    background-color: var(--navy-800);
+}
+
+.bg-navy-700 {
+    background-color: var(--navy-700);
+}
+
+.border-navy-700 {
+    border-color: var(--navy-700);
+}
+
+.text-navy-600 {
+    color: var(--navy-600);
+}
+
+.active-nav-item {
+    background-color: var(--navy-700);
+    font-weight: 500;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Add gradient background for the login page */
+.bg-gradient-to-r {
+    background-image: linear-gradient(to right, #3b82f6, #2563eb);
+}
+
+/* Add hover effect for buttons */
+button:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Add shadow for the login form */
+.shadow-lg {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
